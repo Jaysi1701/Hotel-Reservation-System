@@ -27,5 +27,24 @@ public class HotelReservation {
         reservation.addHotel("Ridgewood",220);
 
         System.out.println("Hotels Added Successfully");
+
+        System.out.println(
+                reservation.findCheapestHotel());
+    }
+
+    public String findCheapestHotel() {
+
+        Hotel cheapestHotel = hotelList.get(0);
+
+        for (Hotel hotel : hotelList) {
+
+            if (hotel.regularRate <
+                    cheapestHotel.regularRate) {
+
+                cheapestHotel = hotel;
+            }
+        }
+
+        return cheapestHotel.hotelName;
     }
 }
