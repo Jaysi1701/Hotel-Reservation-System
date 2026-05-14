@@ -2,6 +2,10 @@ package hotelreservation;
 
 import java.util.ArrayList;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+
 public class HotelReservation {
 
     ArrayList<Hotel> hotelList = new ArrayList<>();
@@ -24,7 +28,8 @@ public class HotelReservation {
         hotelList.add(hotel);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+            throws HotelReservationException {
 
         System.out.println("Welcome to Hotel Reservation Program");
 
@@ -55,10 +60,16 @@ public class HotelReservation {
                 100,
                 40);
 
-        System.out.println("Hotels Added Successfully");
+        Hotel hotel =
+                reservation.getCheapestBestRatedHotel(
+                        1,
+                        1,
+                        true);
 
         System.out.println(
-                reservation.cheapestBestRatedRewardHotel(1,1));
+                hotel.hotelName +
+                        " Rating: " +
+                        hotel.rating);
     }
 
     public String cheapestBestRatedHotel(int weekdays,
@@ -148,6 +159,66 @@ public class HotelReservation {
                 cheapestHotel.rating +
                 " Total Rates: $" +
                 minimumCost;
+    }
+
+    public Hotel getCheapestBestRatedHotel(
+            int weekdays,
+            int weekends,
+            boolean rewardCustomer) {
+
+        return hotelList.stream()
+
+                .min((hotel1, hotel2) -> {
+
+                    int cost1;
+                    int cost2;
+
+                    if (rewardCustomer) {
+
+                        cost1 =
+                                weekdays * hotel1.rewardWeekdayRate +
+                                        weekends * hotel1.rewardWeekendRate;
+
+                        cost2 =
+                                weekdays * hotel2.rewardWeekdayRate +
+                                        weekends * hotel2.rewardWeekendRate;
+
+                    } else {
+
+                        cost1 =
+                                weekdays * hotel1.weekdayRate +
+                                        weekends * hotel1.weekendRate;
+
+                        cost2 =
+                                weekdays * hotel2.weekdayRate +
+                                        weekends * hotel2.weekendRate;
+                    }
+
+                    if (cost1 == cost2) {
+
+                        return hotel2.rating -
+                                hotel1.rating;
+                    }
+
+                    return cost1 - cost2;
+
+                }).orElse(null);
+    }
+
+    public LocalDate validateDate(String date)
+            throws HotelReservationException {
+
+        try {
+
+            return LocalDate.parse(
+                    date,
+                    DateTimeFormatter.ofPattern("ddMMMyyyy"));
+
+        } catch (Exception e) {
+
+            throw new HotelReservationException(
+                    "Invalid Date");
+        }
     }
 
 }
