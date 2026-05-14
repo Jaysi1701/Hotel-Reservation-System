@@ -7,10 +7,13 @@ public class HotelReservation {
     ArrayList<Hotel> hotelList = new ArrayList<>();
 
     public void addHotel(String hotelName,
-                         int regularRate) {
+                         int weekdayRate,
+                         int weekendRate) {
 
         Hotel hotel =
-                new Hotel(hotelName, regularRate);
+                new Hotel(hotelName,
+                        weekdayRate,
+                        weekendRate);
 
         hotelList.add(hotel);
     }
@@ -22,29 +25,42 @@ public class HotelReservation {
         HotelReservation reservation =
                 new HotelReservation();
 
-        reservation.addHotel("Lakewood",110);
-        reservation.addHotel("Bridgewood",150);
-        reservation.addHotel("Ridgewood",220);
+        reservation.addHotel("Lakewood",110,90);
+
+        reservation.addHotel("Bridgewood",150,50);
+
+        reservation.addHotel("Ridgewood",220,150);
 
         System.out.println("Hotels Added Successfully");
 
         System.out.println(
-                reservation.findCheapestHotel());
+                reservation.findCheapestHotel(1,1));
     }
 
-    public String findCheapestHotel() {
+    public String findCheapestHotel(int weekdays,
+                                    int weekends) {
 
-        Hotel cheapestHotel = hotelList.get(0);
+        int minimumCost = Integer.MAX_VALUE;
+
+        String cheapestHotel = "";
 
         for (Hotel hotel : hotelList) {
 
-            if (hotel.regularRate <
-                    cheapestHotel.regularRate) {
+            int totalCost =
+                    weekdays * hotel.weekdayRate +
+                            weekends * hotel.weekendRate;
 
-                cheapestHotel = hotel;
+            if (totalCost < minimumCost) {
+
+                minimumCost = totalCost;
+
+                cheapestHotel = hotel.hotelName;
             }
         }
 
-        return cheapestHotel.hotelName;
+        return cheapestHotel +
+                " Total Rate: $" +
+                minimumCost;
     }
+
 }
