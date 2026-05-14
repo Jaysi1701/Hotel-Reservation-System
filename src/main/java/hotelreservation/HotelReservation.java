@@ -31,21 +31,24 @@ public class HotelReservation {
         HotelReservation reservation =
                 new HotelReservation();
 
-        reservation.addHotel("Lakewood",
+        reservation.addHotel(
+                "Lakewood",
                 110,
                 90,
                 3,
                 80,
                 80);
 
-        reservation.addHotel("Bridgewood",
+        reservation.addHotel(
+                "Bridgewood",
                 150,
                 50,
                 4,
                 110,
                 50);
 
-        reservation.addHotel("Ridgewood",
+        reservation.addHotel(
+                "Ridgewood",
                 220,
                 150,
                 5,
@@ -55,7 +58,7 @@ public class HotelReservation {
         System.out.println("Hotels Added Successfully");
 
         System.out.println(
-                reservation.bestRatedHotel(1,1));
+                reservation.cheapestBestRatedRewardHotel(1,1));
     }
 
     public String cheapestBestRatedHotel(int weekdays,
@@ -111,6 +114,40 @@ public class HotelReservation {
         return bestHotel.hotelName +
                 " Total Rates: $" +
                 totalCost;
+    }
+
+    public String cheapestBestRatedRewardHotel(
+            int weekdays,
+            int weekends) {
+
+        int minimumCost = Integer.MAX_VALUE;
+
+        Hotel cheapestHotel = null;
+
+        for (Hotel hotel : hotelList) {
+
+            int totalCost =
+                    weekdays * hotel.rewardWeekdayRate +
+                            weekends * hotel.rewardWeekendRate;
+
+            if (totalCost < minimumCost) {
+
+                minimumCost = totalCost;
+
+                cheapestHotel = hotel;
+
+            } else if (totalCost == minimumCost &&
+                    hotel.rating > cheapestHotel.rating) {
+
+                cheapestHotel = hotel;
+            }
+        }
+
+        return cheapestHotel.hotelName +
+                " Rating: " +
+                cheapestHotel.rating +
+                " Total Rates: $" +
+                minimumCost;
     }
 
 }
