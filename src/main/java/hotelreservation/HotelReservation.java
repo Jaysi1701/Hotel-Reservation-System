@@ -8,12 +8,14 @@ public class HotelReservation {
 
     public void addHotel(String hotelName,
                          int weekdayRate,
-                         int weekendRate) {
+                         int weekendRate,
+                         int rating) {
 
         Hotel hotel =
                 new Hotel(hotelName,
                         weekdayRate,
-                        weekendRate);
+                        weekendRate,
+                        rating);
 
         hotelList.add(hotel);
     }
@@ -25,11 +27,20 @@ public class HotelReservation {
         HotelReservation reservation =
                 new HotelReservation();
 
-        reservation.addHotel("Lakewood",110,90);
+        reservation.addHotel("Lakewood",
+                110,
+                90,
+                3);
 
-        reservation.addHotel("Bridgewood",150,50);
+        reservation.addHotel("Bridgewood",
+                150,
+                50,
+                4);
 
-        reservation.addHotel("Ridgewood",220,150);
+        reservation.addHotel("Ridgewood",
+                220,
+                150,
+                5);
 
         System.out.println("Hotels Added Successfully");
 
