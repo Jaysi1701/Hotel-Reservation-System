@@ -42,7 +42,7 @@ public class HotelReservation {
 
         int minimumCost = Integer.MAX_VALUE;
 
-        String cheapestHotel = "";
+        String cheapestHotels = "";
 
         for (Hotel hotel : hotelList) {
 
@@ -54,12 +54,17 @@ public class HotelReservation {
 
                 minimumCost = totalCost;
 
-                cheapestHotel = hotel.hotelName;
+                cheapestHotels = hotel.hotelName;
+
+            } else if (totalCost == minimumCost) {
+
+                cheapestHotels +=
+                        " and " + hotel.hotelName;
             }
         }
 
-        return cheapestHotel +
-                " Total Rate: $" +
+        return cheapestHotels +
+                " Total Rates: $" +
                 minimumCost;
     }
 
