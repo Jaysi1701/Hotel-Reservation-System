@@ -45,7 +45,7 @@ public class HotelReservation {
         System.out.println("Hotels Added Successfully");
 
         System.out.println(
-                reservation.cheapestBestRatedHotel(1,1));
+                reservation.bestRatedHotel(1,1));
     }
 
     public String cheapestBestRatedHotel(int weekdays,
@@ -79,6 +79,28 @@ public class HotelReservation {
                 cheapestHotel.rating +
                 " Total Rates: $" +
                 minimumCost;
+    }
+
+    public String bestRatedHotel(int weekdays,
+                                 int weekends) {
+
+        Hotel bestHotel = hotelList.get(0);
+
+        for (Hotel hotel : hotelList) {
+
+            if (hotel.rating > bestHotel.rating) {
+
+                bestHotel = hotel;
+            }
+        }
+
+        int totalCost =
+                weekdays * bestHotel.weekdayRate +
+                        weekends * bestHotel.weekendRate;
+
+        return bestHotel.hotelName +
+                " Total Rates: $" +
+                totalCost;
     }
 
 }
