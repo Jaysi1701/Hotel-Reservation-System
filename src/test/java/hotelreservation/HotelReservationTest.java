@@ -11,20 +11,29 @@ public class HotelReservationTest {
         HotelReservation reservation =
                 new HotelReservation();
 
-        reservation.addHotel("Lakewood",
+        reservation.addHotel(
+                "Lakewood",
                 110,
                 90,
-                3);
+                3,
+                80,
+                80);
 
-        reservation.addHotel("Bridgewood",
+        reservation.addHotel(
+                "Bridgewood",
                 150,
                 50,
-                4);
+                4,
+                110,
+                50);
 
-        reservation.addHotel("Ridgewood",
+        reservation.addHotel(
+                "Ridgewood",
                 220,
                 150,
-                5);
+                5,
+                100,
+                40);
 
         String cheapestHotel =
                 reservation.cheapestBestRatedHotel(1,1);
@@ -40,20 +49,29 @@ public class HotelReservationTest {
         HotelReservation reservation =
                 new HotelReservation();
 
-        reservation.addHotel("Lakewood",
+        reservation.addHotel(
+                "Lakewood",
                 110,
                 90,
-                3);
+                3,
+                80,
+                80);
 
-        reservation.addHotel("Bridgewood",
+        reservation.addHotel(
+                "Bridgewood",
                 150,
                 50,
-                4);
+                4,
+                110,
+                50);
 
-        reservation.addHotel("Ridgewood",
+        reservation.addHotel(
+                "Ridgewood",
                 220,
                 150,
-                5);
+                5,
+                100,
+                40);
 
         String bestHotel =
                 reservation.bestRatedHotel(1,1);
