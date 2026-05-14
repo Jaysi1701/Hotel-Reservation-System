@@ -6,32 +6,31 @@ import org.junit.jupiter.api.Test;
 public class HotelReservationTest {
 
     @Test
-    public void givenHotelDetails_WhenAdded_ShouldReturnTrue() {
+    public void givenDateRange_WhenChecked_ShouldReturnCheapestBestRatedHotel() {
 
         HotelReservation reservation =
                 new HotelReservation();
 
-        reservation.addHotel("Lakewood",110);
+        reservation.addHotel("Lakewood",
+                110,
+                90,
+                3);
 
-        Assertions.assertEquals(1,
-                reservation.hotelList.size());
-    }
+        reservation.addHotel("Bridgewood",
+                150,
+                50,
+                4);
 
-    @Test
-    public void givenHotelRates_WhenChecked_ShouldReturnCheapestHotel() {
-
-        HotelReservation reservation =
-                new HotelReservation();
-
-        reservation.addHotel("Lakewood",110);
-        reservation.addHotel("Bridgewood",150);
-        reservation.addHotel("Ridgewood",220);
+        reservation.addHotel("Ridgewood",
+                220,
+                150,
+                5);
 
         String cheapestHotel =
-                reservation.findCheapestHotel();
+                reservation.cheapestBestRatedHotel(1,1);
 
         Assertions.assertEquals(
-                "Lakewood",
+                "Bridgewood Rating: 4 Total Rates: $200",
                 cheapestHotel);
     }
 }

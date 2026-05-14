@@ -45,15 +45,15 @@ public class HotelReservation {
         System.out.println("Hotels Added Successfully");
 
         System.out.println(
-                reservation.findCheapestHotel(1,1));
+                reservation.cheapestBestRatedHotel(1,1));
     }
 
-    public String findCheapestHotel(int weekdays,
-                                    int weekends) {
+    public String cheapestBestRatedHotel(int weekdays,
+                                         int weekends) {
 
         int minimumCost = Integer.MAX_VALUE;
 
-        String cheapestHotels = "";
+        Hotel cheapestHotel = null;
 
         for (Hotel hotel : hotelList) {
 
@@ -65,16 +65,18 @@ public class HotelReservation {
 
                 minimumCost = totalCost;
 
-                cheapestHotels = hotel.hotelName;
+                cheapestHotel = hotel;
 
-            } else if (totalCost == minimumCost) {
+            } else if (totalCost == minimumCost &&
+                    hotel.rating > cheapestHotel.rating) {
 
-                cheapestHotels +=
-                        " and " + hotel.hotelName;
+                cheapestHotel = hotel;
             }
         }
 
-        return cheapestHotels +
+        return cheapestHotel.hotelName +
+                " Rating: " +
+                cheapestHotel.rating +
                 " Total Rates: $" +
                 minimumCost;
     }
